@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scorecard Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- Add favicon -->
+    <link rel="icon" type="image/png" href="assets/score.png" />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <div class="header">
+        <h1>
+          <span class="gradient-text">Scorecard</span>
+          <span class="dashboard-text">Dashboard</span>
+        </h1>
+        <div class="user-info">
+          <span id="welcomeMsg">Welcome, </span>
+          <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+      </div>
+
+      <!-- Statistics Component -->
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-title">📊 Average Total Score</div>
+          <div class="stat-value" id="avgTotal">0</div>
+          <div class="stat-subtitle">Average of all totals</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">📝 Total Entries</div>
+          <div class="stat-value" id="totalEntries">0</div>
+          <div class="stat-subtitle">Scorecards recorded</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">🏆 Highest Total Score</div>
+          <div class="stat-value" id="highestScore">0</div>
+          <div class="stat-subtitle">Best total score</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">📉 Lowest Total Score</div>
+          <div class="stat-value" id="lowestScore">0</div>
+          <div class="stat-subtitle">Lowest total score</div>
+        </div>
+      </div>
+      <!-- Add New Row Form -->
+      <div class="add-form">
+        <h3>Add New Scorecard Entry</h3>
+        <form id="addScorecardForm">
+          <input type="text" id="source" placeholder="Source" required />
+          <input type="date" id="date" required />
+          <input
+            type="number"
+            id="reasoning"
+            placeholder="Reasoning Score"
+            step="any"
+            required
+          />
+          <input
+            type="number"
+            id="english"
+            placeholder="English Score"
+            step="any"
+            required
+          />
+          <input
+            type="number"
+            id="gs"
+            placeholder="GS Score"
+            step="any"
+            required
+          />
+          <input
+            type="number"
+            id="aptitude"
+            placeholder="Aptitude Score"
+            step="any"
+            required
+          />
+          <input
+            type="number"
+            id="attempt"
+            placeholder="Attempt"
+            step="any"
+            required
+          />
+          <input
+            type="number"
+            id="correct"
+            placeholder="Correct"
+            step="any"
+            required
+          />
+          <input
+            type="number"
+            id="wrong"
+            placeholder="Wrong"
+            step="any"
+            required
+          />
+          <input
+            type="number"
+            id="percentile"
+            placeholder="Percentile"
+            step="any"
+            required
+          />
+          <button type="submit">Add Entry</button>
+        </form>
+      </div>
+
+      <!-- Scorecard Table -->
+      <div class="table-container">
+        <table id="scorecardTable">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Source</th>
+              <th>Date</th>
+              <th>Reasoning</th>
+              <th>English</th>
+              <th>GS</th>
+              <th>Aptitude</th>
+              <th>Total</th>
+              <th>Attempt</th>
+              <th>Correct</th>
+              <th>Wrong</th>
+              <th>Accuracy</th>
+              <th>Percentile</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="scorecardBody">
+            <tr>
+              <td colspan="14">Loading...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeModalBtn">&times;</span>
+        <h3>Edit Scorecard Entry</h3>
+        <form id="editForm">
+          <input type="hidden" id="editId" />
+          <input type="text" id="editSource" placeholder="Source" required />
+          <input type="date" id="editDate" required />
+          <input
+            type="number"
+            id="editReasoning"
+            placeholder="Reasoning Score"
+            step="any"
+            required
+          />
+          <input
+            type="number"
+            id="editEnglish"
+            placeholder="English Score"
+            step="any"
+            required
+          />
+          <input
+            type="number"
+            id="editGs"
+            placeholder="GS Score"
+            step="any"
+            required
+          />
+          <input
+            type="number"
+            id="editAptitude"
+            placeholder="Aptitude Score"
+            step="any"
+            required
+          />
+          <input
+            type="number"
+            id="editAttempt"
+            placeholder="Attempt"
+            step="any"
+            required
+          />
+          <input
+            type="number"
+            id="editCorrect"
+            placeholder="Correct"
+            step="any"
+            required
+          />
+          <input
+            type="number"
+            id="editWrong"
+            placeholder="Wrong"
+            step="any"
+            required
+          />
+          <input
+            type="number"
+            id="editPercentile"
+            placeholder="Percentile"
+            step="any"
+            required
+          />
+          <button type="submit">Update Entry</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>

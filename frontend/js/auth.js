@@ -20,12 +20,18 @@ function showToast(message, type = 'success') {
 const token = localStorage.getItem('access_token');
 const currentPage = window.location.pathname.split('/').pop();
 
-if (token && currentPage === 'index.html') {
-    window.location.href = 'dashboard.html';
+// Redirect logic - FIXED
+if (token && (currentPage === 'index.html' || currentPage === '' || currentPage === '/')) {
+    window.location.href = '/dashboard';  // Changed from dashboard.html
 }
 
 if (!token && currentPage === 'dashboard.html') {
-    window.location.href = 'index.html';
+    window.location.href = '/';  // Changed from index.html
+}
+
+// Also handle root path
+if (token && (window.location.pathname === '/' || window.location.pathname === '')) {
+    window.location.href = '/dashboard';
 }
 
 // Login form handler
@@ -52,13 +58,13 @@ if (loginForm) {
                 localStorage.setItem('user_id', data.user_id);
                 showToast(`Welcome back, ${username}!`, 'success');
                 setTimeout(() => {
-                    window.location.href = 'dashboard.html';
+                    window.location.href = '/dashboard';  // Changed from dashboard.html
                 }, 500);
             } else {
                 showToast(data.detail || 'Login failed', 'error');
             }
         } catch (error) {
-            showToast('Connection error. Make sure backend is running on port 8000', 'error');
+            showToast('Connection error. Make sure backend is running', 'error');
         }
     });
 }

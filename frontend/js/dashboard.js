@@ -19,7 +19,8 @@ function showToast(message, type = 'success') {
 // Check authentication
 const token = localStorage.getItem('access_token');
 if (!token) {
-    window.location.href = 'index.html';
+    console.log('No token found, redirecting to login');
+    window.location.href = '/';  // Changed from index.html
 }
 
 // Display welcome message

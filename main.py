@@ -100,7 +100,7 @@ def delete_scorecard_route(scorecard_id: str, current_user = Depends(get_current
         raise HTTPException(status_code=404, detail="Scorecard not found")
     return {"message": "Scorecard deleted"}
 
-# Serve Static Files
+# Serve Static Files (mount these FIRST)
 app.mount("/css", StaticFiles(directory="frontend/css"), name="css")
 app.mount("/js", StaticFiles(directory="frontend/js"), name="js")
 app.mount("/assets", StaticFiles(directory="frontend/assets"), name="assets")
@@ -114,9 +114,11 @@ async def serve_index():
 async def serve_dashboard():
     return FileResponse("frontend/dashboard.html")
 
-# Catch-all route
+# Catch-all route - MUST be LAST
 @app.get("/{full_path:path}")
 async def catch_all(full_path: str):
+    # If it's an API call or static file that doesn't exist, return 404
     if full_path.startswith("api/") or full_path.startswith("css/") or full_path.startswith("js/") or full_path.startswith("assets/"):
         raise HTTPException(status_code=404, detail="Not found")
+    # For any other path, serve index.html (for client-side routing)
     return FileResponse("frontend/index.html")
